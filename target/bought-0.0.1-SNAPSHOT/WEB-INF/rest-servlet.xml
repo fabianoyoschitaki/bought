@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+	<context:component-scan base-package="com.networkmi.controller" />
+	<context:component-scan base-package="com.networkmi.resources" />
+	<context:component-scan base-package="com.networkmi.dao" />
+
+	<mvc:annotation-driven />
+	<!-- O controlador do Spring MVC, ou seja o servlet no web.xml, foi configurado 
+		para receber todas as requisições incluindo essas que foram enviadas para 
+		receber o conteúdo de arquivos comuns como imagens, css ou scripts. Queremos 
+		que o controlador não atenda essas requisições que não são para ações. Para 
+		isso é preciso adicionar no arquivo spring-context.xml um mapeamento que 
+		informa ao Spring MVC que ele deve ignorar todo acesso a conteúdo estático. -->
+	<mvc:default-servlet-handler />
+
+	<!-- é preciso informar ao Spring o local onde colocaremos os arquivos JSP. 
+		Para isso Spring MVC oferece uma classe especial que recebe o nome da pasta 
+		dos JSPs e a extensão dos arquivos. Vamos criar todos os JSPs na pasta /WEB-INF/views/ -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+</beans>

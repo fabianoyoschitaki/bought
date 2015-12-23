@@ -1,0 +1,47 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+ http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+ http://www.springframework.org/schema/context
+ http://www.springframework.org/schema/context/spring-context-4.0.xsd
+ http://www.springframework.org/schema/mvc
+ http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+	<!-- Bean Definition -->
+	<!-- bean id="usuarioDao" class="com.networkmi.dao.impl.UsuarioDaoImpl" />
+	<bean id="categoriaDao" class="com.networkmi.dao.impl.CategoriaDaoImpl" />
+	<bean id="eventoDao" class="com.networkmi.dao.impl.EventoDaoImpl" />
+
+	<bean id="usuarioService" class="com.networkmi.facade.impl.UsuarioServiceImpl">
+		<property name="usuarioDao" ref="usuarioDao" />
+	</bean>
+
+	<bean id="categoriaService" class="com.networkmi.facade.impl.CategoriaServiceImpl">
+		<property name="categoriaDao" ref="categoriaDao" />
+	</bean>
+	
+	<bean id="eventoService" class="com.networkmi.facade.impl.EventoServiceImpl">
+		<property name="eventoDao" ref="eventoDao" />
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="order" value="1" />
+		<property name="mediaTypes">
+			<map>
+				<entry key="json" value="application/json" />
+				<entry key="xml" value="application/xml" />
+			</map>
+		</property>
+	</bean-->
+
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- setting maximum upload size -->
+		<property name="maxUploadSize" value="26214400" />
+
+	</bean>
+</beans>
