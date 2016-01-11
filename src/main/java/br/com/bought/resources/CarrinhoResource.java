@@ -1,8 +1,12 @@
-package src.main.java.br.com.bought.resources;
+package br.com.bought.resources;
 
 import java.util.Date;
 
-import org.springframework.http.MediaType;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Produces;
+
+import javax.ws.rs.core.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
