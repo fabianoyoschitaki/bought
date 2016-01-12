@@ -18,10 +18,25 @@
 					$("<li/>", {"text" : "Nenhum produto."}).appendTo("#produtos");
 				}
 			});
+			
+			var urlMercados = window.location.href + "mercados/todos";
+			$.getJSON(urlMercados, function(data){
+				if (data.length !== 0){
+					$.each(data, function(i, mercado) {
+						$("<li/>", { "text": mercado.nome + " - QR " + mercado.qrCode})
+							.append(" ").append($("<a/>", {
+					  		 	"text" : window.location.href + "mercados/obter/" + mercado.qrCode,
+							  	"href" : window.location.href + "mercados/obter/" + mercado.qrCode
+						})).appendTo("#mercados");
+					});
+				} else {
+					$("<li/>", {"text" : "Nenhum mercado."}).appendTo("#mercados");
+				}
+			});
 		</script>
 	</head>
 	<body>
-		<h2>Bought 1.0</h2>
+		<h2>Bought 2.0</h2>
 		<br />
 		<h3>Produtos</h3>
 		<a href="novoProduto">Criar Produto</a>
@@ -34,5 +49,18 @@
 		<span>Obter Produto (REST)</span>
 		<br />
 		<ul id='produtos'></ul>
+		<br />
+		
+		<h3>Mercados</h3>
+		<a href="novoMercado">Criar Mercado</a>
+		<br />
+		<a href="listaMercados">Listar Mercados</a>
+		<br />
+		<a href="mercados/todos">Listar Mercados (REST)</a>
+		<br />
+		<br />
+		<span>Obter Mercado (REST)</span>
+		<br />
+		<ul id='mercados'></ul>
 	</body>
 </html>

@@ -18,11 +18,6 @@ public class ProdutoController {
 		return "produto/formulario";
 	}
 	
-	@RequestMapping("teste")
-	public String teste() {
-		return "produto/teste";
-	}
-	
 	@RequestMapping("adicionaProduto")
 	public String adiciona(@Valid Produto produto, BindingResult result) {
 		ProdutoDAO.adicionarProduto(produto);

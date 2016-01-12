@@ -14,7 +14,6 @@ public class UsuarioDAO {
 		usuarios.add(new UsuarioVO(CONT++, "Admin", "admin@bought.com.br", "123456"));
 	}
 	
-	
 	public static UsuarioVO obterUsuarioByEmail(String email){
 		UsuarioVO retorno = null;
 		for (UsuarioVO usuarioVO : usuarios) {
