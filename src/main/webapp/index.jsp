@@ -36,7 +36,12 @@
 		</script>
 	</head>
 	<body>
-		<h2>Bought 2.0</h2>
+		<h2>Bought 3.0</h2>
+		<br />
+		<h3>WS ConfirmacaoPagamentoGerarQRCODE</h3>
+		<span>passar codigoPagamentoConfirmado e numeroCarrinho</span>
+		<br />
+		<a href="carrinho/obter/qrcode?codigoPagamentoConfirmado=123&numeroCarrinho=123">carrinho/obter/qrcode?codigoPagamentoConfirmado=123&numeroCarrinho=123</a>
 		<br />
 		<h3>Produtos</h3>
 		<a href="novoProduto">Criar Produto</a>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.bought.common.CarrinhoVO;
@@ -47,6 +48,19 @@ public class CarrinhoResource {
 					retorno.setNumeroCarrinho(UUID.randomUUID().toString());
 				}
 			}
+		}
+		return retorno;
+	}
+	
+	@POST
+	@RequestMapping("/obter/qrcode")
+	public String getQRCodeCompra(
+		@RequestParam String codigoPagamentoConfirmado, 
+		@RequestParam String numeroCarrinho){
+		String retorno = null;
+		if (codigoPagamentoConfirmado != null && numeroCarrinho != null){
+			//TODO verifica no paypal se pagou e recupera o número do carrinho dados do cliente
+			retorno = UUID.randomUUID().toString();
 		}
 		return retorno;
 	}
