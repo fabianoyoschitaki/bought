@@ -2,32 +2,27 @@ package br.com.bought.common;
 
 import java.math.BigDecimal;
 
-import br.com.bought.model.Produto;
 
 /**
  * Created by Hallan on 06/12/2015.
  */
 public class ItemCompraVO {
 
-    private Produto produto;
+    private ItemVO itemVO;
     private Integer quantidade;
-    private BigDecimal valorTotalItem;
+    private BigDecimal valor;
 
-    public ItemCompraVO(Produto produto, Integer quantidade){
-        this.produto = produto;
+    public ItemCompraVO(ItemVO itemVO, Integer quantidade, BigDecimal valor){
+    	this.itemVO = itemVO;
         this.quantidade = quantidade;
-        this.valorTotalItem = new BigDecimal(0);
+        this.valor = valor;
     }
 
-    public Produto getProduto() {
-        return produto;
-    }
+    public ItemCompraVO() {
+		// TODO Auto-generated constructor stub
+	}
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
-    }
-
-    public Integer getQuantidade() {
+	public Integer getQuantidade() {
         return quantidade;
     }
 
@@ -35,10 +30,19 @@ public class ItemCompraVO {
         this.quantidade = quantidade;
     }
 
-    public BigDecimal getValorTotalItem() {
-        if (produto != null && produto.getPreco() != null && quantidade != null){
-            valorTotalItem = new BigDecimal(produto.getPreco() * quantidade);
-        }
-        return valorTotalItem;
-    }
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
+
+	public ItemVO getItemVO() {
+		return itemVO;
+	}
+
+	public void setItemVO(ItemVO itemVO) {
+		this.itemVO = itemVO;
+	}
 }

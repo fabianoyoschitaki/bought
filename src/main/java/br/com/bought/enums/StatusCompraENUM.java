@@ -2,24 +2,34 @@ package br.com.bought.enums;
 
 public enum StatusCompraENUM {
 
-	PAGA(1,"PAGA"),
-	AGUARDANDO_PAGAMENTO(2,"AGUARDANDO PAGAMENTO"),
-	CANCELADO(3, "CANCELADO"),
-	RECUSADA(4, "RECUSADA");
+	PAGA((short)1,"PAGA"),
+	AGUARDANDO_PAGAMENTO((short)2,"AGUARDANDO PAGAMENTO"),
+	CANCELADO((short)3, "CANCELADO"),
+	RECUSADA((short)4, "RECUSADA");
 	
-	private Integer codigo;
+	private Short codigo;
 	private String descricao;
 	
-	StatusCompraENUM(final Integer codigo, final String descricao){
+	public static StatusCompraENUM get(Short codigo){
+		StatusCompraENUM retorno = null;
+		for (StatusCompraENUM statusCompraEnum : values()) {
+			if(statusCompraEnum.getCodigo().equals(codigo)){
+				retorno = statusCompraEnum;
+			}
+		}
+		return retorno;
+	}
+	
+	StatusCompraENUM(final Short codigo, final String descricao){
 		this.codigo = codigo;
 		this.descricao = descricao;
 	}
 
-	public Integer getCodigo() {
+	public Short getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(Short codigo) {
 		this.codigo = codigo;
 	}
 

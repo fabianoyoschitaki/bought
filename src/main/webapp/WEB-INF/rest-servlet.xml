@@ -12,7 +12,13 @@
         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 	<context:component-scan base-package="br.com.bought.controller" />
 	<context:component-scan base-package="br.com.bought.resources" />
-	<context:component-scan base-package="br.com.bought.dao" />
+	<context:component-scan base-package="br.com.bought.business" />
+	<context:component-scan base-package="br.com.bought.common" />
+	<context:component-scan base-package="br.com.bought.enums" />
+	<context:component-scan base-package="br.com.bought.helper" />
+	<context:component-scan base-package="br.com.bought.model" />
+	<context:component-scan base-package="br.com.bought.resources" />
+	<context:component-scan base-package="br.com.bought.utils" />
 
 	<mvc:annotation-driven />
 	<!-- O controlador do Spring MVC, ou seja o servlet no web.xml, foi configurado 

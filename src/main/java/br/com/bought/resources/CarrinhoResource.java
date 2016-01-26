@@ -1,6 +1,5 @@
 package br.com.bought.resources;
 
-import java.util.Calendar;
 import java.util.UUID;
 
 import javax.ws.rs.Consumes;
@@ -15,15 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.bought.business.CarrinhoBusiness;
+import br.com.bought.business.CompraBusiness;
 import br.com.bought.common.CarrinhoVO;
 import br.com.bought.common.CompraVO;
-import br.com.bought.common.MercadoVO;
 import br.com.bought.common.UsuarioVO;
-import br.com.bought.dao.MercadoDAO;
-import br.com.bought.dao.UsuarioDAO;
-import br.com.bought.enums.StatusCarrinhoENUM;
-import br.com.bought.enums.StatusCompraENUM;
-import br.com.bought.utils.BoughtUtils;
 
 @RestController
 @RequestMapping("/carrinho/")
@@ -31,34 +26,29 @@ import br.com.bought.utils.BoughtUtils;
 @Consumes(MediaType.APPLICATION_JSON)
 public class CarrinhoResource {
 	
+	private CompraBusiness compraBusiness;
+	private CarrinhoBusiness carrinhoBusiness;
+
+	public CarrinhoResource() {
+		compraBusiness = new CompraBusiness();
+		carrinhoBusiness = new CarrinhoBusiness();
+	}
+	
 	@POST
-	@RequestMapping("/obter/novo/{codigoMercado}")
+	@RequestMapping("/obter/novo/{codigoEstabelecimento}")
 	public CarrinhoVO getNovoCarrinho(
-		@PathVariable String codigoMercado, 
+		@PathVariable String codigoEstabelecimento, 
 		@RequestBody UsuarioVO usuario){
-		CarrinhoVO retorno = new CarrinhoVO();
-		if (usuario != null){
-			UsuarioVO u = UsuarioDAO.obterUsuarioByEmail(usuario.getEmail());
-			if (u != null){
-				MercadoVO mercado = MercadoDAO.obterMercadoPorQRCode(codigoMercado);
-				if (mercado != null){
-					retorno.setMercado(mercado);
-					retorno.setStatusCarrinho(StatusCarrinhoENUM.EM_COMPRAS);
-					retorno.setDataCarrinho(Calendar.getInstance());
-					retorno.setNumeroCarrinho(UUID.randomUUID().toString());
-				}
-			}
-		}
-		return retorno;
+		return carrinhoBusiness.getNovoCarrinho(codigoEstabelecimento, usuario);
 	}
 	
 	@POST
 	@RequestMapping("/obter/qrcode")
 	public String getQRCodeCompra(
 		@RequestParam String codigoPagamentoConfirmado, 
-		@RequestParam String numeroCarrinho){
+		@RequestBody CarrinhoVO carrinhoVO){
 		String retorno = null;
-		if (codigoPagamentoConfirmado != null && numeroCarrinho != null){
+		if (codigoPagamentoConfirmado != null && carrinhoVO != null){
 			//TODO verifica no paypal se pagou e recupera o número do carrinho dados do cliente
 			retorno = UUID.randomUUID().toString();
 		}
@@ -73,20 +63,9 @@ public class CarrinhoResource {
 	 * @param usuario
 	 * @return
 	 */
-	//TODO ATUALIZAR INFORMAÇÕES DO CARRINHO NA BASE.
-	//TODO GERAR COMPRA NA BASE.
 	@RequestMapping(value =  "/inserir", method = RequestMethod.POST)
 	public CompraVO finalizarCarrinho(@RequestBody CarrinhoVO carrinho, 
 			@RequestBody UsuarioVO usuario){
-		CompraVO compra = null;
-		if(carrinho != null && usuario != null){
-			compra = new CompraVO();
-			carrinho.setStatusCarrinho(StatusCarrinhoENUM.FINALIZADO);
-			compra.setCarrinho(carrinho);
-			compra.setDataGeracaoCompra(Calendar.getInstance());
-			compra.setStatusCompra(StatusCompraENUM.AGUARDANDO_PAGAMENTO);
-			compra.setValor(BoughtUtils.getValorCompraFromCarrinho(carrinho));
-		}
-		return compra;
+		return compraBusiness.gerarCompra(carrinho, usuario);
 	}
 }

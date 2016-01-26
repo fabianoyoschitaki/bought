@@ -1,26 +1,13 @@
 package br.com.bought.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import br.com.bought.common.UsuarioVO;
+import br.com.bought.model.Usuario;
 
-public class UsuarioDAO {
+public interface UsuarioDAO {
 
-
-	private static List<UsuarioVO> usuarios = new ArrayList<UsuarioVO>(); 
-	private static int CONT = 1;
-	static {
-		usuarios.add(new UsuarioVO(CONT++, "Admin", "admin@bought.com.br", "123456"));
-	}
-	
-	public static UsuarioVO obterUsuarioByEmail(String email){
-		UsuarioVO retorno = null;
-		for (UsuarioVO usuarioVO : usuarios) {
-			if(usuarioVO.getEmail().equals(email)){
-				retorno = usuarioVO;
-			}
-		}
-		return retorno;
-	}
+	Usuario buscarPorId(Long id);
+	Usuario obterUsuarioPorEmail(String email);
+	Long salvar(Usuario usuario);
+	List<Usuario> listarTodos();
 }

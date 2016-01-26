@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.bought.dao.ProdutoDAO;
-import br.com.bought.model.Produto;
+import br.com.bought.model.Item;
 
 @RestController
 @RequestMapping("/produtos/")
@@ -24,26 +23,26 @@ public class ProdutoResource {
 	
     @GET
 	@RequestMapping("/todos")
-	public List<Produto> getTodosProdutos(){
-		return ProdutoDAO.obterTodosProdutos();
+	public List<Item> getTodosProdutos(){
+		//return ProdutoDAO.obterTodosProdutos();
+    	return null;
 	}
 	
 	@RequestMapping(value = "/obter/{codigoBarra}" , method = RequestMethod.GET)
-	public Produto obterProduto(@PathVariable String codigoBarra){
-		return ProdutoDAO.obterProdutoPorCodigoBarra(codigoBarra);
+	public Item obterProduto(@PathVariable String codigoBarra){
+		//return ProdutoDAO.obterProdutoPorCodigoBarra(codigoBarra);
+		return null;
 	}
 	
 	@RequestMapping(value =  "/inserir", method = RequestMethod.POST)
-	public Produto inserirProduto( @RequestBody Produto produto){
-		return ProdutoDAO.adicionarProduto(produto);
+	public Item inserirProduto( @RequestBody Item produto){
+		//return ProdutoDAO.adicionarProduto(produto);
+		return null;
 	}
 	
 	@RequestMapping(value =  "/deletar/{codigoBarra}", method = RequestMethod.GET)
-	public Produto deletarProduto(@PathVariable String codigoBarra){
-		return ProdutoDAO.removerProdutoPorCodigoBarra(codigoBarra);
+	public Item deletarProduto(@PathVariable String codigoBarra){
+		//return ProdutoDAO.removerProdutoPorCodigoBarra(codigoBarra);
+		return null;
 	}
 }
-
-
-	
-

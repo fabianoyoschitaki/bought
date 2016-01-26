@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.bought.business.EstabelecimentoBusiness;
+import br.com.bought.common.EstabelecimentoVO;
 import br.com.bought.common.MercadoVO;
 import br.com.bought.dao.MercadoDAO;
 
@@ -20,12 +22,18 @@ import br.com.bought.dao.MercadoDAO;
 @RequestMapping("/mercados/")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class MercadoResource {
+public class EstabelecimentoResource {
+	
+	private EstabelecimentoBusiness estabelecimentoBusiness;
+	
+	public EstabelecimentoResource(){
+		estabelecimentoBusiness = new EstabelecimentoBusiness();
+	}
 	
     @GET
 	@RequestMapping("/todos")
-	public List<MercadoVO> getTodosMercados(){
-		return MercadoDAO.obterTodosMercados();
+	public List<EstabelecimentoVO> getTodosEstabelecimentos(){
+		return estabelecimentoBusiness.getTodosEstabelecimentos();
 	}
 	
 	@RequestMapping(value = "/obter/{codigoMercado}" , method = RequestMethod.GET)
@@ -43,7 +51,3 @@ public class MercadoResource {
 		return MercadoDAO.removerMercadoPorId(id);
 	}
 }
-
-
-	
-

@@ -1,0 +1,53 @@
+package br.com.bought.common;
+
+
+public class ItemVO {
+
+	private String nome;
+	private String codigoBarra;
+	private String urlImagem;
+
+	// private Categoria categoria;
+
+	// private Marca marca;
+
+	// public Categoria getCategoria() {
+	// return categoria;
+	// }
+	//
+	// public void setCategoria(Categoria categoria) {
+	// this.categoria = categoria;
+	// }
+	//
+	// public Marca getMarca() {
+	// return marca;
+	// }
+	//
+	// public void setMarca(Marca marca) {
+	// this.marca = marca;
+	// }
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCodigoBarra() {
+		return codigoBarra;
+	}
+
+	public void setCodigoBarra(String codigoBarra) {
+		this.codigoBarra = codigoBarra;
+	}
+
+	public String getUrlImagem() {
+		return urlImagem;
+	}
+
+	public void setUrlImagem(String urlImagem) {
+		this.urlImagem = urlImagem;
+	}
+}

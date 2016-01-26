@@ -1,30 +1,25 @@
 package br.com.bought.common;
 
+import java.util.Date;
+
 public class UsuarioVO {
 
-	private Integer id;
 	private String nome;
 	private String email;
 	private String senha;
+	private Date dataCriacao;
 	
 	public UsuarioVO(){
 		
 	}
 	
-	public UsuarioVO(Integer id, String nome, String email, String senha) {
+	public UsuarioVO(String nome, String email, String senha) {
 		super();
-		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
 	}
 	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
 	public String getNome() {
 		return nome;
 	}
@@ -42,6 +37,14 @@ public class UsuarioVO {
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
 	}
 	
 	
