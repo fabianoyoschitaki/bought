@@ -47,7 +47,7 @@ public class Estabelecimento {
 	@Column(name="URL_LOGO")
     private String urlLogo;
 	
-	@Column(name="QR_CODE")
+	@Column(name="QR_CODE", unique = true, nullable = false)
     private String qrCode;
 	
 	

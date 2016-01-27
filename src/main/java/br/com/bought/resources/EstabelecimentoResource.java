@@ -19,7 +19,7 @@ import br.com.bought.common.MercadoVO;
 import br.com.bought.dao.MercadoDAO;
 
 @RestController
-@RequestMapping("/mercados/")
+@RequestMapping("/estabelecimentos/")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class EstabelecimentoResource {
@@ -36,9 +36,19 @@ public class EstabelecimentoResource {
 		return estabelecimentoBusiness.getTodosEstabelecimentos();
 	}
 	
-	@RequestMapping(value = "/obter/{codigoMercado}" , method = RequestMethod.GET)
-	public MercadoVO obterProduto(@PathVariable String codigoMercado){
-		return MercadoDAO.obterMercadoPorQRCode(codigoMercado);
+	@RequestMapping(value = "/obter/id/{idEstabelecimento}", method = RequestMethod.GET)
+	public EstabelecimentoVO obterEstabelecimentoPorId(@PathVariable Long idEstabelecimento){
+		return estabelecimentoBusiness.obterEstabelecimentoPorId(idEstabelecimento);
+	}
+	
+	@RequestMapping(value = "/obter/codigo/{codigoEstabelecimento}", method = RequestMethod.GET)
+	public EstabelecimentoVO obterEstabelecimentoPorCodigo(@PathVariable String codigoEstabelecimento){
+		return estabelecimentoBusiness.obterEstabelecimentoPorCodigoEstabelecimento(codigoEstabelecimento);
+	}
+	
+	@RequestMapping(value = "/obter/qrcode/{qrCode}", method = RequestMethod.GET)
+	public EstabelecimentoVO obterEstabelecimentoPorQRCode(@PathVariable String qrCode){
+		return estabelecimentoBusiness.obterEstabelecimentoPorQRCode(qrCode);
 	}
 	
 	@RequestMapping(value =  "/inserir", method = RequestMethod.POST)

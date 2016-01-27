@@ -19,24 +19,30 @@
 				}
 			});
 			
-			var urlMercados = window.location.href + "mercados/todos";
-			$.getJSON(urlMercados, function(data){
+			var urlEstabelecimentos = window.location.href + "estabelecimentos/todos";
+			$.getJSON(urlEstabelecimentos, function(data){
 				if (data.length !== 0){
-					$.each(data, function(i, mercado) {
-						$("<li/>", { "text": mercado.nome + " - QR " + mercado.qrCode})
+					$.each(data, function(i, estabelecimento) {
+						$("<li/>", { "text": estabelecimento.nome + " - QR Code " + estabelecimento.qrCode})
 							.append(" ").append($("<a/>", {
-					  		 	"text" : window.location.href + "mercados/obter/" + mercado.qrCode,
-							  	"href" : window.location.href + "mercados/obter/" + mercado.qrCode
-						})).appendTo("#mercados");
+					  		 	"text" : window.location.href + "estabelecimentos/obter/qrcode/" + estabelecimento.qrCode,
+							  	"href" : window.location.href + "estabelecimentos/obter/qrcode/" + estabelecimento.qrCode
+						})).appendTo("#estabelecimentos");
 					});
 				} else {
-					$("<li/>", {"text" : "Nenhum mercado."}).appendTo("#mercados");
+					$("<li/>", {"text" : "Nenhum estabelecimento."}).appendTo("#estabelecimentos");
 				}
 			});
 		</script>
 	</head>
 	<body>
-		<h2>Bought 3.0</h2>
+		<h2>Bought 4.0</h2>
+		<br />
+		<h3>Historico</h3>
+		<ul>
+			<li>27/01/2016 - Fabiano <b>Alterando Mercado para Estabelecimento com Hibernate</b>				
+			</li>
+		</ul>
 		<br />
 		<h3>WS ConfirmacaoPagamentoGerarQRCODE</h3>
 		<span>passar codigoPagamentoConfirmado e numeroCarrinho</span>
@@ -56,16 +62,16 @@
 		<ul id='produtos'></ul>
 		<br />
 		
-		<h3>Mercados</h3>
-		<a href="novoMercado">Criar Mercado</a>
+		<h3>Estabelecimentos</h3>
+		<a href="novoEstabelecimento">Criar Estabelecimento</a>
 		<br />
-		<a href="listaMercados">Listar Mercados</a>
+		<a href="listaEstabelecimentos">Listar Estabelecimentos</a>
 		<br />
-		<a href="mercados/todos">Listar Mercados (REST)</a>
+		<a href="estabelecimentos/todos">Listar Estabelecimentos (REST)</a>
 		<br />
 		<br />
-		<span>Obter Mercado (REST)</span>
+		<span>Obter Estabelecimento (REST)</span>
 		<br />
-		<ul id='mercados'></ul>
+		<ul id='estabelecimentos'></ul>
 	</body>
 </html>

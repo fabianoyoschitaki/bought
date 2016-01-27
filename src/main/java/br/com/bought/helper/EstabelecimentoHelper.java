@@ -16,5 +16,13 @@ public class EstabelecimentoHelper {
 		}
 		return retorno;
 	}
-
+	
+	public Estabelecimento convertEstabelecimentoVOToEstabelecimento(EstabelecimentoVO estabelecimentoVO){
+		Estabelecimento retorno = null;
+		if(estabelecimentoVO != null){
+			retorno = new Estabelecimento();
+			BeanUtils.copyProperties(estabelecimentoVO, retorno);
+		}
+		return retorno;
+	}
 }

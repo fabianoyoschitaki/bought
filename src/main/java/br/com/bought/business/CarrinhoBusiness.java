@@ -6,8 +6,6 @@ import java.util.UUID;
 import br.com.bought.common.CarrinhoVO;
 import br.com.bought.common.ItemCompraVO;
 import br.com.bought.common.UsuarioVO;
-import br.com.bought.dao.EstabelecimentoDAOImpl;
-import br.com.bought.helper.EstabelecimentoHelper;
 
 public class CarrinhoBusiness {
 
@@ -24,7 +22,7 @@ public class CarrinhoBusiness {
 		CarrinhoVO retorno = null;
 		if (codigoEstabelecimento != null && usuarioBusiness.isUsuarioValido(usuarioVO)) {
 			retorno = new CarrinhoVO();
-			retorno.setEstabelecimentoVO(estabelecimentoBusiness.obterEstabelecimentoPortCodigoEstabelecimento(codigoEstabelecimento));
+			retorno.setEstabelecimentoVO(estabelecimentoBusiness.obterEstabelecimentoPorCodigoEstabelecimento(codigoEstabelecimento));
 			retorno.setItensCompraVO(new ArrayList<ItemCompraVO>());
 			retorno.setNumeroCarrinho(getNumeroCarrinho(codigoEstabelecimento, usuarioVO));
 		}

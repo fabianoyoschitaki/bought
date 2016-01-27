@@ -18,9 +18,10 @@ public class EstabelecimentoBusiness {
 		estabelecimentoDAOImpl = new EstabelecimentoDAOImpl();
 	}
 	
-	public Long salvar(Estabelecimento estabelecimento){
+	public Long salvar(EstabelecimentoVO estabelecimentoVO){
 		Long retorno = null;
-		if(estabelecimento != null){
+		if (estabelecimentoVO != null){
+			Estabelecimento estabelecimento = estabelecimentoHelper.convertEstabelecimentoVOToEstabelecimento(estabelecimentoVO);
 			retorno = estabelecimentoDAOImpl.salvar(estabelecimento);
 		}
 		return retorno;
@@ -37,9 +38,18 @@ public class EstabelecimentoBusiness {
 	}
 	
 
-	public EstabelecimentoVO obterEstabelecimentoPortCodigoEstabelecimento(String codigoEstabelecimento){
+	public EstabelecimentoVO obterEstabelecimentoPorCodigoEstabelecimento(String codigoEstabelecimento){
 		EstabelecimentoVO retorno = null;
 		Estabelecimento estabelecimento = estabelecimentoDAOImpl.obterEstabelecimentoPorCodigoEstabelecimento(codigoEstabelecimento);
+		if (estabelecimento != null){
+			retorno = estabelecimentoHelper.convertEstabelecimentoToEstabelecimentoVO(estabelecimento);
+		}
+		return retorno;
+	}
+	
+	public EstabelecimentoVO obterEstabelecimentoPorQRCode(String qrCode){
+		EstabelecimentoVO retorno = null;
+		Estabelecimento estabelecimento = estabelecimentoDAOImpl.obterEstabelecimentoPorQRCode(qrCode);
 		if(estabelecimento != null){
 			retorno = estabelecimentoHelper.convertEstabelecimentoToEstabelecimentoVO(estabelecimento);
 		}

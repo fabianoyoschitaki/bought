@@ -86,6 +86,29 @@ public class EstabelecimentoDAOImpl implements EstabelecimentoDAO{
 		}
 		return retorno;
 	}
+	
+	public Estabelecimento obterEstabelecimentoPorQRCode(
+			String qrCode) {
+		Estabelecimento retorno = null;		
+		Session session = null;
+		
+		try{
+			session = getSession().getCurrentSession();
+			session.beginTransaction();
+			
+		    Query query = session.createQuery("From Estabelecimento e where	 e.qrCode = :qrCode");
+		    query.setParameter("qrCode", qrCode);
+		    retorno = (Estabelecimento) query.uniqueResult();
+		    session.getTransaction().commit();
+		}catch (Exception e){
+			e.printStackTrace();
+		}finally{
+			if(session != null && session.isOpen()){
+				session.close();
+			}
+		}
+		return retorno;
+	}
 
 	public List<Estabelecimento> getTodosEstabelecimentos() {
 		List<Estabelecimento> retorno = null;

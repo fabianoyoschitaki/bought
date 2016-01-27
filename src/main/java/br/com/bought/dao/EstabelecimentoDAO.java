@@ -8,5 +8,6 @@ public interface EstabelecimentoDAO {
 
 	Estabelecimento obterEstabelecimentoPorId(Long id);
 	Estabelecimento obterEstabelecimentoPorCodigoEstabelecimento(String codigoEstabelecimento);
+	Estabelecimento obterEstabelecimentoPorQRCode(String qrCode);
 	List<Estabelecimento> getTodosEstabelecimentos();
 }

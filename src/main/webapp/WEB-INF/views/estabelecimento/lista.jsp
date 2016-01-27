@@ -23,12 +23,12 @@
 	     </div>
   	</div>
 	<div class="container">
-		<h2>Lista de Mercados</h2>
+		<h2>Lista de Estabelecimentos</h2>
 		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th>Foto</th>
-					<th>Id</th>
+					<th>Codigo</th>
 					<th>QR Code</th>
 					<th>Nome</th>
 					<th>Descricao</th>
@@ -41,27 +41,27 @@
 				</tr>
 			</thead>
 			<tbody>
-      			<c:forEach items="${mercados}" var="mercado">
+      			<c:forEach items="${estabelecimentos}" var="estabelecimento">
 					<tr>
-						<td><img src="${mercado.urlFoto}" alt="" border='3' height='50' width='50' /></td>
-						<td>${mercado.id}</td>
-						<td>${mercado.qrCode}</td>
-						<td>${mercado.nome}</td>
-						<td>${mercado.descricao}</td>
-						<td>${mercado.nomeCidade}</td>
-						<td>${mercado.siglaEstado}</td>
-						<td>${mercado.tipoLogradouro}</td>
-						<td>${mercado.nomeLogradouro}</td>
-						<td>${mercado.numeroLogradouro}</td>
-						<td>${mercado.numeroCep}</td>
+						<td><img src="${estabelecimento.urlLogo}" alt="" border='3' height='50' width='50' /></td>
+						<td>${estabelecimento.codigoEstabelecimento}</td>
+						<td>${estabelecimento.qrCode}</td>
+						<td>${estabelecimento.nome}</td>
+						<td>${estabelecimento.descricao}</td>
+						<td>${estabelecimento.nomeCidade}</td>
+						<td>${estabelecimento.siglaEstado}</td>
+						<td>${estabelecimento.tipoLogradouro}</td>
+						<td>${estabelecimento.nomeLogradouro}</td>
+						<td>${estabelecimento.numeroLogradouro}</td>
+						<td>${estabelecimento.numeroCep}</td>
 						<td><a href="#" class="btn btn-warning mini blue-stripe">Editar</a></td>
-                        <td><a href="#" class="confirm-delete btn btn-danger" role="button" data-title="${produto.nome}" data-codigobarra="${produto.codigoBarra}" data-id="${produto.id}">Remover</a></td>
+                        <td><a href="#" class="confirm-delete btn btn-danger" role="button">Remover</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<div class="col-md-4 text-center"> 
-			<a href="novoMercado" class="btn btn-success" role="button">Novo Mercado</a>
+			<a href="novoEstabelecimento" class="btn btn-success" role="button">Novo Estabelecimento</a>
 		</div>
 	</div>
 	
@@ -82,7 +82,7 @@
         $(document).ready(function() {
 			$('#myModal').on('show', function() {
 			    var tit = $('.confirm-delete').data('title');
-			    $('#myModal .modal-body p').html("Deseja remover mercado " + '<b>' + tit +'</b>' + ' ?');
+			    $('#myModal .modal-body p').html("Deseja remover estabelecimento " + '<b>' + tit +'</b>' + ' ?');
 			    var id = $(this).data('codigobarra'),
 			    removeBtn = $(this).find('.danger');
 			});
