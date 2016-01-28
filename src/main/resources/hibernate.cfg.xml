@@ -21,7 +21,7 @@
  
      <mapping class="br.com.bought.model.Compra" />
      <mapping class="br.com.bought.model.Estabelecimento" />
-     <mapping class="br.com.bought.model.Item" />
+     <mapping class="br.com.bought.model.Produto" />
      <mapping class="br.com.bought.model.ItemCompra" />
      <mapping class="br.com.bought.model.StatusCompra" />
      <mapping class="br.com.bought.model.Usuario" />

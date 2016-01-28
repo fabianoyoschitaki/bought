@@ -5,7 +5,8 @@ public enum StatusCompraENUM {
 	PAGA((short)1,"PAGA"),
 	AGUARDANDO_PAGAMENTO((short)2,"AGUARDANDO PAGAMENTO"),
 	CANCELADO((short)3, "CANCELADO"),
-	RECUSADA((short)4, "RECUSADA");
+	RECUSADA((short)4, "RECUSADA"),
+	FINALIZADO((short)4, "FINALIZADO");
 	
 	private Short codigo;
 	private String descricao;

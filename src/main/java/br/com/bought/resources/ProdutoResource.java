@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.bought.model.Item;
+import br.com.bought.business.ProdutoBusiness;
+import br.com.bought.common.ProdutoVO;
 
 @RestController
 @RequestMapping("/produtos/")
@@ -21,27 +22,31 @@ import br.com.bought.model.Item;
 @Consumes(MediaType.APPLICATION_JSON)
 public class ProdutoResource {
 	
-    @GET
-	@RequestMapping("/todos")
-	public List<Item> getTodosProdutos(){
-		//return ProdutoDAO.obterTodosProdutos();
-    	return null;
+	private ProdutoBusiness produtoBusiness;
+	
+	public ProdutoResource() {
+		produtoBusiness = new ProdutoBusiness();
 	}
 	
-	@RequestMapping(value = "/obter/{codigoBarra}" , method = RequestMethod.GET)
-	public Item obterProduto(@PathVariable String codigoBarra){
-		//return ProdutoDAO.obterProdutoPorCodigoBarra(codigoBarra);
-		return null;
+    @GET
+	@RequestMapping("/todos")
+	public List<ProdutoVO> getTodosProdutos(){
+		return produtoBusiness.listarTodos();
+	}
+	
+	@RequestMapping(value = "/obterProdutoPorCodigoBarra/{codigoBarra}/{codigoEstabelecimento}" , method = RequestMethod.GET)
+	public ProdutoVO obterProdutoPorCodigoBarra(@PathVariable String codigoBarra, @PathVariable String codigoEstabelecimento){
+		return produtoBusiness.obterPorCodigoBarra(codigoBarra);
 	}
 	
 	@RequestMapping(value =  "/inserir", method = RequestMethod.POST)
-	public Item inserirProduto( @RequestBody Item produto){
+	public Long inserirProduto( @RequestBody ProdutoVO produto){
 		//return ProdutoDAO.adicionarProduto(produto);
 		return null;
 	}
 	
 	@RequestMapping(value =  "/deletar/{codigoBarra}", method = RequestMethod.GET)
-	public Item deletarProduto(@PathVariable String codigoBarra){
+	public Boolean deletarProduto(@PathVariable String codigoBarra){
 		//return ProdutoDAO.removerProdutoPorCodigoBarra(codigoBarra);
 		return null;
 	}

@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class UsuarioVO {
 
+	private Long id;
 	private String nome;
 	private String email;
 	private String senha;
@@ -19,6 +20,7 @@ public class UsuarioVO {
 		this.email = email;
 		this.senha = senha;
 	}
+	
 	
 	public String getNome() {
 		return nome;
@@ -45,6 +47,14 @@ public class UsuarioVO {
 
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

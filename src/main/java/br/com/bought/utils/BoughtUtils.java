@@ -1,9 +1,5 @@
 package br.com.bought.utils;
 
-import java.math.BigDecimal;
-
-import br.com.bought.common.CarrinhoVO;
-import br.com.bought.common.ItemCompraVO;
 
 public class BoughtUtils {
 

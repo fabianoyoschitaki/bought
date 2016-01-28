@@ -26,6 +26,9 @@ public class Compra {
 	@Column(name="ID_COMPRA")
 	private Long id;
 	
+	@Column(name="NUMERO_SESSAO")
+	private String numeroSessao;
+	
 	@Column(name="VALOR_TOTAL")
 	private BigDecimal valorTotal;
 	
@@ -82,6 +85,10 @@ public class Compra {
 	public void setItensCompra(List<ItemCompra> itensCompra) {
 		this.itensCompra = itensCompra;
 	}
-	
-	
+	public String getNumeroSessao() {
+		return numeroSessao;
+	}
+	public void setNumeroSessao(String numeroSessao) {
+		this.numeroSessao = numeroSessao;
+	}
 }

@@ -46,15 +46,7 @@ public class EstabelecimentoBusiness {
 		}
 		return retorno;
 	}
-	
-	public EstabelecimentoVO obterEstabelecimentoPorQRCode(String qrCode){
-		EstabelecimentoVO retorno = null;
-		Estabelecimento estabelecimento = estabelecimentoDAOImpl.obterEstabelecimentoPorQRCode(qrCode);
-		if(estabelecimento != null){
-			retorno = estabelecimentoHelper.convertEstabelecimentoToEstabelecimentoVO(estabelecimento);
-		}
-		return retorno;
-	}
+
 
 	public List<EstabelecimentoVO> getTodosEstabelecimentos() {
 		List<EstabelecimentoVO> retorno = new ArrayList<EstabelecimentoVO>();
@@ -65,5 +57,10 @@ public class EstabelecimentoBusiness {
 			}
 		}
 		return retorno;
+	}
+
+	public Long inserirEstabelecimento(EstabelecimentoVO estabelecimentoVO) {
+		Estabelecimento estabelecimento = estabelecimentoHelper.convertEstabelecimentoVOToEstabelecimento(estabelecimentoVO);
+		return estabelecimentoDAOImpl.salvar(estabelecimento);
 	}
 }

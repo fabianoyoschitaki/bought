@@ -7,6 +7,8 @@ import br.com.bought.enums.StatusCompraENUM;
 
 public class CompraVO {
 
+	private Long id;
+	private String numeroSessao;
 	private BigDecimal valorTotal;
 	private UsuarioVO usuarioVO;
 	private EstabelecimentoVO estabelecimentoVO;
@@ -42,5 +44,17 @@ public class CompraVO {
 	}
 	public void setStatusCompraENUM(StatusCompraENUM statusCompraENUM) {
 		this.statusCompraENUM = statusCompraENUM;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getNumeroSessao() {
+		return numeroSessao;
+	}
+	public void setNumeroSessao(String numeroSessao) {
+		this.numeroSessao = numeroSessao;
 	}
 }

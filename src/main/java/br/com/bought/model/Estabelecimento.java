@@ -47,9 +47,6 @@ public class Estabelecimento {
 	@Column(name="URL_LOGO")
     private String urlLogo;
 	
-	@Column(name="QR_CODE", unique = true, nullable = false)
-    private String qrCode;
-	
 	
 	public Long getId() {
 		return id;
@@ -116,11 +113,5 @@ public class Estabelecimento {
 	}
 	public void setUrlLogo(String urlLogo) {
 		this.urlLogo = urlLogo;
-	}
-	public String getQrCode() {
-		return qrCode;
-	}
-	public void setQrCode(String qrCode) {
-		this.qrCode = qrCode;
 	}
 }

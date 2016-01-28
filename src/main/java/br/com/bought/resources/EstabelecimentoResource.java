@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.bought.business.EstabelecimentoBusiness;
 import br.com.bought.common.EstabelecimentoVO;
-import br.com.bought.common.MercadoVO;
-import br.com.bought.dao.MercadoDAO;
 
 @RestController
 @RequestMapping("/estabelecimentos/")
@@ -46,18 +44,8 @@ public class EstabelecimentoResource {
 		return estabelecimentoBusiness.obterEstabelecimentoPorCodigoEstabelecimento(codigoEstabelecimento);
 	}
 	
-	@RequestMapping(value = "/obter/qrcode/{qrCode}", method = RequestMethod.GET)
-	public EstabelecimentoVO obterEstabelecimentoPorQRCode(@PathVariable String qrCode){
-		return estabelecimentoBusiness.obterEstabelecimentoPorQRCode(qrCode);
-	}
-	
-	@RequestMapping(value =  "/inserir", method = RequestMethod.POST)
-	public MercadoVO inserirMercado( @RequestBody MercadoVO mercado){
-		return MercadoDAO.adicionarMercado(mercado);
-	}
-	
-	@RequestMapping(value =  "/deletar/{id}", method = RequestMethod.GET)
-	public MercadoVO deletarMercado(@PathVariable Integer id){
-		return MercadoDAO.removerMercadoPorId(id);
+	@RequestMapping(value =  "/inserirEstabelecimento", method = RequestMethod.POST)
+	public Long inserirEstabelecimento( @RequestBody EstabelecimentoVO estabelecimentoVO){
+		return estabelecimentoBusiness.inserirEstabelecimento(estabelecimentoVO);
 	}
 }

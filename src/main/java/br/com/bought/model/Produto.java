@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class Item implements Serializable {
+public class Produto implements Serializable {
 
 	/**
 	 * 
@@ -25,7 +25,7 @@ public class Item implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "ID_ITEM", unique = true, nullable = false, precision = 15, scale = 0)
+	@Column(name = "ID_PRODUTO", unique = true, nullable = false, precision = 15, scale = 0)
 	private Long id;
 	
 	@Column(name="NOME")

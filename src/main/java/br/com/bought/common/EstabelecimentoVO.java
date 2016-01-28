@@ -4,6 +4,7 @@ package br.com.bought.common;
 
 public class EstabelecimentoVO {
 
+	private Long id;
 	private String codigoEstabelecimento;
 	private String descricao;
 	private String nome;
@@ -14,8 +15,14 @@ public class EstabelecimentoVO {
     private String tipoLogradouro;
     private String numeroCep;
     private String urlLogo;
-    private String qrCode;
     
+    
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getNome() {
 		return nome;
 	}
@@ -64,12 +71,6 @@ public class EstabelecimentoVO {
 	}
 	public void setUrlLogo(String urlLogo) {
 		this.urlLogo = urlLogo;
-	}
-	public String getQrCode() {
-		return qrCode;
-	}
-	public void setQrCode(String qrCode) {
-		this.qrCode = qrCode;
 	}
 	public String getCodigoEstabelecimento() {
 		return codigoEstabelecimento;

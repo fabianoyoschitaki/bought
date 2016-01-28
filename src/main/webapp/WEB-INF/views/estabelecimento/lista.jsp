@@ -29,7 +29,6 @@
 				<tr>
 					<th>Foto</th>
 					<th>Codigo</th>
-					<th>QR Code</th>
 					<th>Nome</th>
 					<th>Descricao</th>
 					<th>Cidade</th>
@@ -45,7 +44,6 @@
 					<tr>
 						<td><img src="${estabelecimento.urlLogo}" alt="" border='3' height='50' width='50' /></td>
 						<td>${estabelecimento.codigoEstabelecimento}</td>
-						<td>${estabelecimento.qrCode}</td>
 						<td>${estabelecimento.nome}</td>
 						<td>${estabelecimento.descricao}</td>
 						<td>${estabelecimento.nomeCidade}</td>

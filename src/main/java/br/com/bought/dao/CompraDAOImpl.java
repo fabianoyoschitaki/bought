@@ -90,6 +90,27 @@ public class CompraDAOImpl implements CompraDAO {
 		return retorno;
 	}
 
+	public Boolean update(Compra compra){
+		Boolean retorno = Boolean.FALSE;
+		Session session = null;
+
+		try {
+			session = getSession().getCurrentSession();
+			session.beginTransaction();
+
+			session.update(compra);
+			session.getTransaction().commit();
+			retorno = Boolean.TRUE;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null && session.isOpen()) {
+				session.close();
+			}
+		}
+		return retorno;
+	}
+	
 	public Boolean excluirCompra(Compra compra) {
 		// TODO Auto-generated method stub
 		return null;

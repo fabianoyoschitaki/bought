@@ -8,18 +8,17 @@ import java.math.BigDecimal;
  */
 public class ItemCompraVO {
 
-    private ItemVO itemVO;
+	private Long id;
+    private ProdutoVO produtoVO;
     private Integer quantidade;
     private BigDecimal valor;
 
-    public ItemCompraVO(ItemVO itemVO, Integer quantidade, BigDecimal valor){
-    	this.itemVO = itemVO;
-        this.quantidade = quantidade;
-        this.valor = valor;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public ItemCompraVO() {
-		// TODO Auto-generated constructor stub
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Integer getQuantidade() {
@@ -38,11 +37,11 @@ public class ItemCompraVO {
 		this.valor = valor;
 	}
 
-	public ItemVO getItemVO() {
-		return itemVO;
+	public ProdutoVO getProdutoVO() {
+		return produtoVO;
 	}
 
-	public void setItemVO(ItemVO itemVO) {
-		this.itemVO = itemVO;
+	public void setProdutoVO(ProdutoVO produtoVO) {
+		this.produtoVO = produtoVO;
 	}
 }

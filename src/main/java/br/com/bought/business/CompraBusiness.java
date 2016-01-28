@@ -6,11 +6,10 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 
-import br.com.bought.common.CarrinhoVO;
 import br.com.bought.common.CompraVO;
 import br.com.bought.common.EstabelecimentoVO;
 import br.com.bought.common.ItemCompraVO;
-import br.com.bought.common.ItemVO;
+import br.com.bought.common.ProdutoVO;
 import br.com.bought.common.UsuarioVO;
 import br.com.bought.dao.CompraDAOImpl;
 import br.com.bought.dao.EstabelecimentoDAOImpl;
@@ -18,7 +17,7 @@ import br.com.bought.dao.UsuarioDAOImpl;
 import br.com.bought.enums.StatusCompraENUM;
 import br.com.bought.model.Compra;
 import br.com.bought.model.Estabelecimento;
-import br.com.bought.model.Item;
+import br.com.bought.model.Produto;
 import br.com.bought.model.ItemCompra;
 import br.com.bought.model.StatusCompra;
 import br.com.bought.model.Usuario;
@@ -28,22 +27,20 @@ public class CompraBusiness {
 	private CompraDAOImpl compraDAOImpl;
 	private UsuarioDAOImpl usuarioDAOImpl;
 	private EstabelecimentoDAOImpl estabelecimentoDAOImpl;
-	private CarrinhoBusiness carrinhoBusiness;
 
 	public CompraBusiness() {
-		carrinhoBusiness = new CarrinhoBusiness();
 		compraDAOImpl = new CompraDAOImpl();
 		usuarioDAOImpl = new UsuarioDAOImpl();
 		estabelecimentoDAOImpl = new EstabelecimentoDAOImpl();
 	}
 
-	public CompraVO gerarCompra(CarrinhoVO carrinho, UsuarioVO usuarioVO) {
+	public CompraVO gerarCompra(String codigoEstabelecimento, UsuarioVO usuarioVO) {
 		CompraVO retorno = null;
-		if (carrinhoBusiness.isCarrinhoValido(carrinho) && usuarioVO != null) {
+		if (codigoEstabelecimento != null && usuarioVO != null) {
 			Usuario usuario = usuarioDAOImpl.obterUsuarioPorEmail(usuarioVO.getEmail());
 			Estabelecimento estabelecimento = estabelecimentoDAOImpl.
-					obterEstabelecimentoPorCodigoEstabelecimento(carrinho.getEstabelecimentoVO().getCodigoEstabelecimento());
-			Compra compra = getCompra(carrinho, usuario, estabelecimento);
+					obterEstabelecimentoPorCodigoEstabelecimento(codigoEstabelecimento);
+			Compra compra = getCompra(usuario, estabelecimento);
 			if (compra != null) {
 				Long id = compraDAOImpl.salvar(compra);
 				if (id != null) {
@@ -84,10 +81,7 @@ public class CompraBusiness {
 		UsuarioVO retorno = null;
 		if (usuario != null) {
 			retorno = new UsuarioVO();
-			retorno.setEmail(usuario.getEmail());
-			retorno.setNome(usuario.getNome());
-			retorno.setSenha(usuario.getSenha());
-			retorno.setDataCriacao(usuario.getDataCriacao());
+			BeanUtils.copyProperties(usuario, retorno);
 		}
 		return retorno;
 	}
@@ -111,20 +105,18 @@ public class CompraBusiness {
 		ItemCompraVO retorno = null;
 		if (itemCompra != null) {
 			retorno = new ItemCompraVO();
-			retorno.setItemVO(convertToItemVO(itemCompra.getItem()));
+			retorno.setProdutoVO(convertToProdutoVO(itemCompra.getProduto()));
 			retorno.setQuantidade(itemCompra.getQuantidade());
 			retorno.setValor(itemCompra.getValor());
 		}
 		return retorno;
 	}
 
-	private ItemVO convertToItemVO(Item item) {
-		ItemVO retorno = null;
-		if (item != null) {
-			retorno = new ItemVO();
-			retorno.setCodigoBarra(item.getCodigoBarra());
-			retorno.setNome(item.getNome());
-			retorno.setUrlImagem(item.getUrlImagem());
+	private ProdutoVO convertToProdutoVO(Produto produto) {
+		ProdutoVO retorno = null;
+		if (produto != null) {
+			retorno = new ProdutoVO();
+			BeanUtils.copyProperties(produto, retorno);
 		}
 		return retorno;
 	}
@@ -134,22 +126,20 @@ public class CompraBusiness {
 		EstabelecimentoVO retorno = null;
 		if (estabelecimento != null) {
 			retorno = new EstabelecimentoVO();
-			retorno.setCodigoEstabelecimento(estabelecimento
-					.getCodigoEstabelecimento());
-			retorno.setDescricao(estabelecimento.getDescricao());
+			BeanUtils.copyProperties(estabelecimento, retorno);
 		}
 		return retorno;
 	}
 
-	private Compra getCompra(CarrinhoVO carrinho, Usuario usuario, Estabelecimento estabelecimento) {
+	private Compra getCompra(Usuario usuario, Estabelecimento estabelecimento) {
 		Compra retorno = null;
 		try {
 			retorno = new Compra();
-			retorno.setItensCompra(convertToItensCompra(carrinho));
+			retorno.setItensCompra(new ArrayList<ItemCompra>());
 			retorno.setStatusCompra(getStatusCompraInicial());
 			retorno.setEstabelecimento(estabelecimento);
 			retorno.setUsuario(usuario);
-			retorno.setValorTotal(getValorTotal(carrinho.getItensCompraVO()));
+			retorno.setValorTotal(BigDecimal.ZERO);
 		} catch (Exception e) {
 			e.printStackTrace();
 			retorno = null;
@@ -168,35 +158,11 @@ public class CompraBusiness {
 		return retorno;
 	}
 
-	private List<ItemCompra> convertToItensCompra(CarrinhoVO carrinhoVO) {
-		List<ItemCompra> retorno = new ArrayList<ItemCompra>();
-		List<ItemCompraVO> itensVO = carrinhoVO.getItensCompraVO();
-		if (itensVO != null && itensVO.size() > 0) {
-			for (ItemCompraVO itemCompraVO : itensVO) {
-				if (itemCompraVO != null) {
-					retorno.add(convertToItemCompra(carrinhoVO, itemCompraVO));
-				}
-			}
-		}
-		return retorno;
-	}
 
-	private ItemCompra convertToItemCompra(CarrinhoVO carrinhoVO,
-			ItemCompraVO itemCompraVO) {
-		ItemCompra retorno = null;
-		if (itemCompraVO != null && itemCompraVO.getItemVO() != null) {
-			retorno = new ItemCompra();
-			retorno.setQuantidade(itemCompraVO.getQuantidade());
-			retorno.setItem(convertToItem(itemCompraVO.getItemVO()));
-			retorno.setValor(itemCompraVO.getValor());
-		}
-		return retorno;
-	}
-
-	private Item convertToItem(ItemVO itemVO) {
-		Item item = null;
+	private Produto convertToItem(ProdutoVO itemVO) {
+		Produto item = null;
 		if (itemVO != null) {
-			item = new Item();
+			item = new Produto();
 			item.setCodigoBarra(itemVO.getCodigoBarra());
 			item.setNome(itemVO.getNome());
 			item.setUrlImagem(itemVO.getUrlImagem());
@@ -235,6 +201,29 @@ public class CompraBusiness {
 		retorno.setCodigo(StatusCompraENUM.AGUARDANDO_PAGAMENTO.getCodigo());
 		retorno.setDescricao(StatusCompraENUM.AGUARDANDO_PAGAMENTO
 				.getDescricao());
+		return retorno;
+	}
+	
+	private StatusCompra getStatusCompraFinalizado() {
+		StatusCompra retorno = new StatusCompra();
+		retorno.setCodigo(StatusCompraENUM.FINALIZADO.getCodigo());
+		retorno.setDescricao(StatusCompraENUM.FINALIZADO
+				.getDescricao());
+		return retorno;
+	}
+
+	public CompraVO finalizarCompra(Long id) {
+		CompraVO retorno = null;
+		if(id != null){
+			Compra compra = compraDAOImpl.buscarCompraPorId(id);
+			if(compra != null){
+				compra.setStatusCompra(getStatusCompraFinalizado());
+				if(compraDAOImpl.update(compra)){
+					retorno = convertToCompraVO(compra);
+					retorno.setStatusCompraENUM(StatusCompraENUM.FINALIZADO);
+				}
+			}
+		}
 		return retorno;
 	}
 

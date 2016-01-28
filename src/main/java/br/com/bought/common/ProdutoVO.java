@@ -1,12 +1,14 @@
 package br.com.bought.common;
 
 
-public class ItemVO {
+public class ProdutoVO {
 
+	private Long id;
 	private String nome;
 	private String codigoBarra;
 	private String urlImagem;
 
+	
 	// private Categoria categoria;
 
 	// private Marca marca;
@@ -27,8 +29,17 @@ public class ItemVO {
 	// this.marca = marca;
 	// }
 
+	
 	public String getNome() {
 		return nome;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public void setNome(String nome) {

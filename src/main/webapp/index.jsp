@@ -23,10 +23,10 @@
 			$.getJSON(urlEstabelecimentos, function(data){
 				if (data.length !== 0){
 					$.each(data, function(i, estabelecimento) {
-						$("<li/>", { "text": estabelecimento.nome + " - QR Code " + estabelecimento.qrCode})
+						$("<li/>", { "text": estabelecimento.nome + " - Código Estabelecimento " + estabelecimento.codigoEstabelecimento})
 							.append(" ").append($("<a/>", {
-					  		 	"text" : window.location.href + "estabelecimentos/obter/qrcode/" + estabelecimento.qrCode,
-							  	"href" : window.location.href + "estabelecimentos/obter/qrcode/" + estabelecimento.qrCode
+					  		 	"text" : window.location.href + "estabelecimentos/obter/codigo/" + estabelecimento.codigoEstabelecimento,
+							  	"href" : window.location.href + "estabelecimentos/obter/codigo/" + estabelecimento.codigoEstabelecimento
 						})).appendTo("#estabelecimentos");
 					});
 				} else {
@@ -47,7 +47,7 @@
 		<h3>WS ConfirmacaoPagamentoGerarQRCODE</h3>
 		<span>passar codigoPagamentoConfirmado e numeroCarrinho</span>
 		<br />
-		<a href="carrinho/obter/qrcode?codigoPagamentoConfirmado=123&numeroCarrinho=123">carrinho/obter/qrcode?codigoPagamentoConfirmado=123&numeroCarrinho=123</a>
+		<a href="carrinho/obter/codigo?codigoPagamentoConfirmado=123&numeroCarrinho=123">carrinho/obter/codigo?codigoPagamentoConfirmado=123&numeroCarrinho=123</a>
 		<br />
 		<h3>Produtos</h3>
 		<a href="novoProduto">Criar Produto</a>
@@ -56,6 +56,9 @@
 		<br />
 		<a href="produtos/todos">Listar Produtos (REST)</a>
 		<br />
+		<a href="produtos/obterProdutoPorCodigoBarra/78935164216654/EXTRA01">ObterProdutoPorCodigoBarra - REST (CodigoBarra, codigoEstabelecimento) </a>
+		<br />
+		
 		<br />
 		<span>Obter Produto (REST)</span>
 		<br />
@@ -69,9 +72,18 @@
 		<br />
 		<a href="estabelecimentos/todos">Listar Estabelecimentos (REST)</a>
 		<br />
+		<a href="estabelecimentos/obter/codigo/extra01">Obter estabelecimento por codigoEstabelecimento (REST)</a>
 		<br />
 		<span>Obter Estabelecimento (REST)</span>
 		<br />
 		<ul id='estabelecimentos'></ul>
+		
+		<h3>Compras</h3>
+		<a href="compra/novaCompra">Gerar Compra REST (Parâmetros - Enviar UsuarioVO via requestBody)</a>
+		<br/>
+		<a href="compra/finalizarCompra">Finalizar Compra REST (Parâmetros - Enviar CompraVO via requestBody) </a>
+		<br/>
+		<a href="compra/obterItemCompraPorCodigoBarra/7895641312/EXTRA01">Serviço que retorna o produto com o valor..ObterItemCompraPorCodigoBarra REST (Parâmetros - codigoBarra e codigoEstabelecimento) </a>
+		
 	</body>
 </html>

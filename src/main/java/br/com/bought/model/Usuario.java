@@ -30,8 +30,6 @@ public class Usuario {
 	
 	@Column(name="DATA_CRIACAO")
 	private Date dataCriacao;
-	
-	
 
 	
 	public Long getId() {

@@ -25,7 +25,7 @@ public class ItemCompra {
 	private Long id;
 	
 	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	private Item item;
+	private Produto produto;
 	
 	@Column(name="VALOR")
 	private BigDecimal valor;
@@ -50,11 +50,12 @@ public class ItemCompra {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Item getItem() {
-		return item;
+	
+	public Produto getProduto() {
+		return produto;
 	}
-	public void setItem(Item item) {
-		this.item = item;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 	public Compra getCompra() {
 		return compra;
