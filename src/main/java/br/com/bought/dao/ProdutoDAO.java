@@ -8,4 +8,5 @@ public interface ProdutoDAO {
 
 	Produto obterPorCodigoBarra(String codigoBarra);
 	List<Produto> listarTodos();
+	Long salvar(Produto produto);
 }

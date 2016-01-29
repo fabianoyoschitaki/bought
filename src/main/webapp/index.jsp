@@ -42,27 +42,21 @@
 		<ul>
 			<li>27/01/2016 - Fabiano <b>Alterando Mercado para Estabelecimento com Hibernate</b>				
 			</li>
+			<li>28/01/2016 - Hallan <b>Expondo mais operações WS</b>				
+			</li>
 		</ul>
 		<br />
-		<h3>WS ConfirmacaoPagamentoGerarQRCODE</h3>
-		<span>passar codigoPagamentoConfirmado e numeroCarrinho</span>
-		<br />
-		<a href="carrinho/obter/codigo?codigoPagamentoConfirmado=123&numeroCarrinho=123">carrinho/obter/codigo?codigoPagamentoConfirmado=123&numeroCarrinho=123</a>
-		<br />
+<!-- 		<h3>WS ConfirmacaoPagamentoGerarQRCODE</h3> -->
+<!-- 		<span>passar codigoPagamentoConfirmado e numeroCarrinho</span> -->
+<!-- 		<br /> -->
+<!-- 		<a href="carrinho/obter/codigo?codigoPagamentoConfirmado=123&numeroCarrinho=123">carrinho/obter/codigo?codigoPagamentoConfirmado=123&numeroCarrinho=123</a> -->
+<!-- 		<br /> -->
 		<h3>Produtos</h3>
 		<a href="novoProduto">Criar Produto</a>
 		<br />
 		<a href="listaProdutos">Listar Produtos</a>
 		<br />
 		<a href="produtos/todos">Listar Produtos (REST)</a>
-		<br />
-		<a href="produtos/obterProdutoPorCodigoBarra/78935164216654/EXTRA01">ObterProdutoPorCodigoBarra - REST (CodigoBarra, codigoEstabelecimento) </a>
-		<br />
-		
-		<br />
-		<span>Obter Produto (REST)</span>
-		<br />
-		<ul id='produtos'></ul>
 		<br />
 		
 		<h3>Estabelecimentos</h3>
@@ -85,5 +79,9 @@
 		<br/>
 		<a href="compra/obterItemCompraPorCodigoBarra/7895641312/EXTRA01">Serviço que retorna o produto com o valor..ObterItemCompraPorCodigoBarra REST (Parâmetros - codigoBarra e codigoEstabelecimento) </a>
 		
+		<br/>
+		
+		<h3>Login</h3>
+		<a href="login/autenticar/admin@bought.com.br/123456">Efetuar Login REST</a>
 	</body>
 </html>

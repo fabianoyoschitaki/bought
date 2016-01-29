@@ -27,25 +27,19 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th>Foto</th>
 					<th>Id</th>
 					<th>Nome</th>
-					<th>Preco</th>
 					<th>Codigo Barra</th>
-					<th>Categoria</th>
-					<th>Marca</th>
+					<th>URL Imagem</th>
 				</tr>
 			</thead>
 			<tbody>
       			<c:forEach items="${produtos}" var="produto">
 					<tr>
-						<td><img src="${produto.urlImagem}" alt="" border='3' height='50' width='50' /></td>
 						<td>${produto.id}</td>
 						<td>${produto.nome}</td>
-						<td>${produto.preco}</td>
 						<td>${produto.codigoBarra}</td>
-						<td>${produto.categoria}</td>
-						<td>${produto.marca}</td>
+						<td><img src="${produto.urlImagem}" alt="" border='3' height='50' width='50' /></td>
 						<td><a href="#" class="btn btn-warning mini blue-stripe">Editar</a></td>
                         <td><a href="#" class="confirm-delete btn btn-danger" role="button" data-title="${produto.nome}" data-codigobarra="${produto.codigoBarra}" data-id="${produto.id}">Remover</a></td>
 					</tr>

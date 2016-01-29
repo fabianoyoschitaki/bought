@@ -34,15 +34,14 @@ public class ProdutoResource {
 		return produtoBusiness.listarTodos();
 	}
 	
-	@RequestMapping(value = "/obterProdutoPorCodigoBarra/{codigoBarra}/{codigoEstabelecimento}" , method = RequestMethod.GET)
-	public ProdutoVO obterProdutoPorCodigoBarra(@PathVariable String codigoBarra, @PathVariable String codigoEstabelecimento){
+	@RequestMapping(value = "/obterProdutoPorCodigoBarra/{codigoBarra}" , method = RequestMethod.GET)
+	public ProdutoVO obterProdutoPorCodigoBarra(@PathVariable String codigoBarra){
 		return produtoBusiness.obterPorCodigoBarra(codigoBarra);
 	}
 	
 	@RequestMapping(value =  "/inserir", method = RequestMethod.POST)
-	public Long inserirProduto( @RequestBody ProdutoVO produto){
-		//return ProdutoDAO.adicionarProduto(produto);
-		return null;
+	public Long inserirProduto( @RequestBody ProdutoVO produtoVO){
+		return produtoBusiness.salvar(produtoVO);
 	}
 	
 	@RequestMapping(value =  "/deletar/{codigoBarra}", method = RequestMethod.GET)

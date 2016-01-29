@@ -23,13 +23,6 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="preco">Preco:</label>
-				<div class="col-sm-10">
-					<input type="number" step="0.01" min="0" class="form-control" id="preco" name="preco"
-						placeholder="Digite o preco">
-				</div>
-			</div>
-			<div class="form-group">
 				<label class="control-label col-sm-2" for="codigoBarra">Codigo Barra:</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="codigoBarra" id="codigoBarra"

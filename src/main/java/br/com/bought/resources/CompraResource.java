@@ -57,8 +57,7 @@ public class CompraResource {
 		return retorno;
 	}
 	
-	@POST
-	@RequestMapping("/obterItemCompraPorCodigoBarra/{codigoBarra}/{codigoEstabelecimento}")
+	@RequestMapping(value = "/obterItemCompraPorCodigoBarra/{codigoBarra}/{codigoEstabelecimento}", method = RequestMethod.GET)
 	public ItemCompraVO obterItemCompraPorCodigoBarra(@PathVariable String codigoBarra, @PathVariable String codigoEstabelecimento){
 		ItemCompraVO retorno = null;
 		ProdutoVO produtoVO = produtoBusiness.obterPorCodigoBarra(codigoBarra);

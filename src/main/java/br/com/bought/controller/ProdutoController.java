@@ -8,7 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.bought.business.ProdutoBusiness;
-import br.com.bought.model.Produto;
+import br.com.bought.common.ProdutoVO;
 
 @Controller
 public class ProdutoController {
@@ -25,8 +25,8 @@ public class ProdutoController {
 	}
 	
 	@RequestMapping("adicionaProduto")
-	public String adiciona(@Valid Produto produto, BindingResult result) {
-		//ProdutoDAO.adicionarProduto(produto);
+	public String adiciona(@Valid ProdutoVO produtoVO, BindingResult result) {
+		produtoBusiness.salvar(produtoVO);
 		return "produto/adicionado";
 	}
 

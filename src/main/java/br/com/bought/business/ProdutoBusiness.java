@@ -31,6 +31,13 @@ public class ProdutoBusiness {
 	}
 
 
+	public Long salvar(ProdutoVO produtoVO){
+		Long retorno = null;
+		Produto produto = produtoHelper.convertProdutoVOToProduto(produtoVO);
+		retorno = produtoDAOImpl.salvar(produto);
+		return retorno;
+	}
+	
 	public List<ProdutoVO> listarTodos() {
 		List<ProdutoVO> retorno = null;
 		List<Produto> produtos = produtoDAOImpl.listarTodos();

@@ -58,6 +58,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 					.createQuery("From Usuario u where  u.email = :email");
 			query.setParameter("email", email);
 			retorno = (Usuario) query.uniqueResult();
+			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

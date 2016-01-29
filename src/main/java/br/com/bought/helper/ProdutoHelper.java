@@ -36,4 +36,13 @@ public class ProdutoHelper {
 		}
 		return retorno;
 	}
+
+	public Produto convertProdutoVOToProduto(ProdutoVO produtoVO) {
+		Produto retorno = null;
+		if(produtoVO != null){
+			retorno = new Produto();
+			BeanUtils.copyProperties(produtoVO, retorno);
+		}
+		return retorno;
+	}
 }

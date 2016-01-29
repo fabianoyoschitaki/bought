@@ -68,4 +68,24 @@ public class ProdutoDAOImpl implements ProdutoDAO{
 		}
 		return retorno;
 	}
+
+	@Override
+	public Long salvar(Produto produto) {
+		Session session = null;
+		Long retorno = null;
+		try {
+			session = getSession().getCurrentSession();
+			session.beginTransaction();
+
+			retorno = (Long) session.save(produto);
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null && session.isOpen()) {
+				session.close();
+			}
+		}
+		return retorno;
+	}
 }
