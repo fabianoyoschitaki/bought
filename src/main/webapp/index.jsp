@@ -83,5 +83,14 @@
 		
 		<h3>Login</h3>
 		<a href="login/autenticar/admin@bought.com.br/123456">Efetuar Login REST</a>
+		
+		<br/>
+		<h3>Usuarios</h3>
+		<a href="novoUsuario">Criar Usuário</a>
+		<br />
+		<a href="listaUsuarios">Listar Usuário</a>
+		<br />
+		<a href="usuarios/todos">Listar Usuários (REST)</a>
+		<br />
 	</body>
 </html>

@@ -37,6 +37,15 @@ public class UsuarioHelper {
 		return retorno;
 	}
 
+	public Usuario convertUsuarioVOToUsuario(UsuarioVO usuarioVO) {
+		Usuario retorno = null;
+		if(usuarioVO != null){
+			retorno = new Usuario();
+			BeanUtils.copyProperties(usuarioVO, retorno);
+		}
+		return retorno;
+	}
+
 //	public Usuario convertUsuarioDTOToUsuario(UsuarioDTO usuarioDTO) {
 //		Usuario retorno = null;
 //		if(usuarioDTO != null){
