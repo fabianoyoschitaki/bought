@@ -64,7 +64,7 @@ public class CompraResource {
 		if(produtoVO != null){
 			retorno = new ItemCompraVO();
 			retorno.setProdutoVO(produtoVO);
-			retorno.setQuantidade(0);
+			retorno.setQuantidade(1);
 			//ACIONAR O FUTURO WS QUE VAI DESCOBRIR O VALOR DO PRODUTO NO ESTABELECIMENTO INFORMADO
 			retorno.setValor(new BigDecimal("25.23"));
 		}

@@ -65,6 +65,7 @@ public class CompraBusiness {
 		CompraVO compraVO = null;
 		if (compraGerada != null) {
 			compraVO = new CompraVO();
+			compraVO.setId(compraGerada.getId());
 			compraVO.setEstabelecimentoVO(convertToEstabelecimentoVO(compraGerada
 					.getEstabelecimento()));
 			compraVO.setItensCompraVO(getItensCompraVO(compraGerada
@@ -91,9 +92,8 @@ public class CompraBusiness {
 	}
 
 	private List<ItemCompraVO> getItensCompraVO(List<ItemCompra> itensCompra) {
-		List<ItemCompraVO> retorno = null;
+		List<ItemCompraVO> retorno = new ArrayList<ItemCompraVO>();
 		if (itensCompra != null && itensCompra.size() > 0) {
-			retorno = new ArrayList<ItemCompraVO>();
 			for (ItemCompra itemCompra : itensCompra) {
 				retorno.add(convertToItemCompraVO(itemCompra));
 			}
@@ -105,6 +105,7 @@ public class CompraBusiness {
 		ItemCompraVO retorno = null;
 		if (itemCompra != null) {
 			retorno = new ItemCompraVO();
+			retorno.setId(itemCompra.getId());
 			retorno.setProdutoVO(convertToProdutoVO(itemCompra.getProduto()));
 			retorno.setQuantidade(itemCompra.getQuantidade());
 			retorno.setValor(itemCompra.getValor());
