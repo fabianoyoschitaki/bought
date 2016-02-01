@@ -213,17 +213,70 @@ public class CompraBusiness {
 		return retorno;
 	}
 
-	public CompraVO finalizarCompra(Long id) {
+	public CompraVO finalizarCompra(CompraVO compraVO) {
 		CompraVO retorno = null;
-		if(id != null){
-			Compra compra = compraDAOImpl.buscarCompraPorId(id);
+		if(compraVO != null){
+			Compra compra = convertCompraVOToCompra(compraVO);
 			if(compra != null){
 				compra.setStatusCompra(getStatusCompraFinalizado());
 				if(compraDAOImpl.update(compra)){
 					retorno = convertToCompraVO(compra);
-					retorno.setStatusCompraENUM(StatusCompraENUM.FINALIZADO);
 				}
 			}
+		}
+		return retorno;
+	}
+
+	private Compra convertCompraVOToCompra(CompraVO compraVO) {
+		Compra retorno = null;
+		if(compraVO != null){
+			retorno = new Compra();
+			retorno.setId(compraVO.getId());
+			retorno.setNumeroSessao(compraVO.getNumeroSessao());
+			retorno.setItensCompra(getItensCompraFromItensCompraVO(compraVO.getItensCompraVO()));
+			retorno.setEstabelecimento(getEstabelecimentoFromEstabelecimentoVO(compraVO.getEstabelecimentoVO()));
+			retorno.setUsuario(getUsuarioFromUsuarioVO(compraVO.getUsuarioVO()));
+			retorno.setValorTotal(compraVO.getValorTotal());
+		}
+		return retorno;
+	}
+
+	private Usuario getUsuarioFromUsuarioVO(UsuarioVO usuarioVO) {
+		Usuario retorno = null;
+		if(usuarioVO != null){
+			retorno = new Usuario();
+			BeanUtils.copyProperties(usuarioVO, retorno);
+		}
+		return retorno;
+	}
+
+	private Estabelecimento getEstabelecimentoFromEstabelecimentoVO(
+			EstabelecimentoVO estabelecimentoVO) {
+		Estabelecimento retorno = null;
+		if(estabelecimentoVO != null){
+			retorno = new Estabelecimento();
+			BeanUtils.copyProperties(estabelecimentoVO, retorno);
+		}
+		return retorno;
+	}
+
+	private List<ItemCompra> getItensCompraFromItensCompraVO(
+			List<ItemCompraVO> itensCompraVO) {
+		List<ItemCompra> retorno = null;
+		if(itensCompraVO != null && itensCompraVO.size() > 0){
+			retorno = new ArrayList<ItemCompra>();
+			for (ItemCompraVO itemCompraVO : itensCompraVO) {
+				retorno.add(convertToItemCompra(itemCompraVO));
+			}
+		} 
+		return retorno;
+	}
+
+	private ItemCompra convertToItemCompra(ItemCompraVO itemCompraVO) {
+		ItemCompra retorno = null;
+		if(itemCompraVO != null){
+			retorno = new ItemCompra();
+			BeanUtils.copyProperties(itemCompraVO, retorno);
 		}
 		return retorno;
 	}

@@ -76,8 +76,9 @@ public class CompraResource {
 	 * @param usuario
 	 * @return
 	 */
-	@RequestMapping(value =  "/finalizarCompra/{idCompra}", method = RequestMethod.POST)
-	public CompraVO finalizarCompra(@PathVariable Long idCompra){
-		return compraBusiness.finalizarCompra(idCompra);
+	@POST
+	@RequestMapping("/finalizarCompra")
+	public CompraVO finalizarCompra(@RequestBody CompraVO compra){
+		return compraBusiness.finalizarCompra(compra);
 	}
 }
