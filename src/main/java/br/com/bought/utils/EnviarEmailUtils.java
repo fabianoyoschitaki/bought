@@ -20,7 +20,7 @@ public class EnviarEmailUtils {
 	private static final String DESCRICAO_ASSUNTO_EMAIL = "Confirmação de cadastro - Ibought";
 	private static final String SERVIDOR = "http://54.200.195.122/";
 	private static final String CONTEXTO_APP = "bought-web/";
-	private static final String CONFIRMACAO_PAGE = "confirmacao.jsp?key=";
+	private static final String CONFIRMACAO_PAGE = "confirmacaoCadastro.jsp?key=";
 
 	private static Properties getDefaultProperties() {
 		Properties props = new Properties();

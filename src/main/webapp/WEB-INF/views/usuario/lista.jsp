@@ -81,7 +81,6 @@
 			});
 			
 			$('#btnYes').click(function() {
-			    // handle deletion here
 			    var email = $('#myModal').data('email');
 			    $('[data-email='+email+']').parents('tr').remove();
 			    $('#myModal').modal('hide');

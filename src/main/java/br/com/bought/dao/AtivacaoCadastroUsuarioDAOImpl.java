@@ -62,4 +62,27 @@ public class AtivacaoCadastroUsuarioDAOImpl implements AtivacaoCadastroUsuarioDA
 		}
 		return retorno;
 	}
+
+	public AtivacaoCadastroUsuario obterAtivacaoCadastroUsuarioPorChave(
+			String chaveConfirmacao) {
+		AtivacaoCadastroUsuario retorno = null;
+		Session session = null;
+		
+		try{
+			session = getSession().getCurrentSession();
+			session.beginTransaction();
+			
+		    Query query = session.createQuery("From AtivacaoCadastroUsuario a where  a.chaveConfirmacao = :chaveConfirmacao");
+		    query.setParameter("chaveConfirmacao", chaveConfirmacao);
+		    retorno = (AtivacaoCadastroUsuario) query.uniqueResult();
+		    session.getTransaction().commit();
+		}catch (Exception e){
+			e.printStackTrace();
+		}finally{
+			if(session != null && session.isOpen()){
+				session.close();
+			}
+		}
+		return retorno;
+	}
 }

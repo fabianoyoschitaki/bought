@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import br.com.bought.model.Compra;
 import br.com.bought.model.Usuario;
 
 public class UsuarioDAOImpl implements UsuarioDAO {
@@ -69,6 +70,27 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		return retorno;
 	}
 
+	public Boolean update(Usuario usuario){
+		Boolean retorno = Boolean.FALSE;
+		Session session = null;
+
+		try {
+			session = getSession().getCurrentSession();
+			session.beginTransaction();
+
+			session.update(usuario);
+			session.getTransaction().commit();
+			retorno = Boolean.TRUE;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null && session.isOpen()) {
+				session.close();
+			}
+		}
+		return retorno;
+	}
+	
 	public Long salvar(Usuario usuario) {
 		Long retorno = null;
 		Session session = null;
