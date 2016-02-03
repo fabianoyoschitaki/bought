@@ -30,8 +30,23 @@ public class Usuario {
 	
 	@Column(name="DATA_CRIACAO")
 	private Date dataCriacao;
-
 	
+	@Column(name="DATA_NASCIMENTO")
+	private Date dataNascimento;
+	
+	@Column(name="CPF", unique=true)
+	private String cpf;
+
+	@Column(name="STATUS")
+	private Boolean ativo;
+	
+	
+	public Boolean getAtivo() {
+		return ativo;
+	}
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -61,6 +76,18 @@ public class Usuario {
 	}
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
+	}
+	public String getCpf() {
+		return cpf;
+	}
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 	
 }

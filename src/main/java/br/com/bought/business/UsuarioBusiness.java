@@ -6,17 +6,23 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 
+import br.com.bought.common.CadastroUsuarioVO;
 import br.com.bought.common.UsuarioVO;
+import br.com.bought.dao.AtivacaoCadastroUsuarioDAOImpl;
 import br.com.bought.dao.UsuarioDAOImpl;
 import br.com.bought.helper.UsuarioHelper;
+import br.com.bought.model.AtivacaoCadastroUsuario;
 import br.com.bought.model.Usuario;
+import br.com.bought.utils.EnviarEmailUtils;
 
 public class UsuarioBusiness {
 	
 	private UsuarioDAOImpl usuarioDAOImpl;
+	private AtivacaoCadastroUsuarioDAOImpl ativacaoCadastroUsuarioDAOImpl;
 	private UsuarioHelper usuarioHelper;
 	
 	public UsuarioBusiness(){
+		ativacaoCadastroUsuarioDAOImpl = new AtivacaoCadastroUsuarioDAOImpl();
 		usuarioHelper = new UsuarioHelper();
 		usuarioDAOImpl = new UsuarioDAOImpl();
 	}
@@ -68,5 +74,52 @@ public class UsuarioBusiness {
 			}
 		}
 		return retorno;
+	}
+
+	public UsuarioVO cadastrarUsuario(CadastroUsuarioVO cadastroUsuarioVO) {
+		UsuarioVO retorno = null;
+		if(cadastroUsuarioVO != null){
+			Usuario usuario = new Usuario();
+			usuario.setCpf(cadastroUsuarioVO.getCpf());
+			usuario.setDataCriacao(new Date());
+			usuario.setDataNascimento(cadastroUsuarioVO.getDataNascimento());
+			usuario.setEmail(cadastroUsuarioVO.getEmail());
+			usuario.setNome(cadastroUsuarioVO.getNome());
+			usuario.setAtivo(Boolean.FALSE);
+			usuario.setSenha(cadastroUsuarioVO.getSenha());
+			
+			try{
+				Long id = usuarioDAOImpl.salvar(usuario);
+				if(id != null){
+					retorno = usuarioHelper.convertUsuarioToUsuarioVO(usuario);
+					
+					String chaveConfirmacao = EnviarEmailUtils.getChaveCriptografada(retorno);
+					if(salvarChaveConfirmacaoCadastro(usuario, chaveConfirmacao)){
+						enviarConfirmacaoEmail(retorno, chaveConfirmacao);
+					}
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return retorno;
+	}
+	
+	
+	private boolean salvarChaveConfirmacaoCadastro(Usuario usuario,
+			String chaveConfirmacao) {
+		Boolean retorno = Boolean.FALSE;
+		AtivacaoCadastroUsuario ativacaoCadastroUsuario = new AtivacaoCadastroUsuario();
+		ativacaoCadastroUsuario.setUsuario(usuario);
+		ativacaoCadastroUsuario.setChaveConfirmacao(chaveConfirmacao);
+		Long id = ativacaoCadastroUsuarioDAOImpl.salvar(ativacaoCadastroUsuario);
+		if(id != null){
+			retorno = Boolean.TRUE;
+		}
+		return retorno;
+	}
+
+	private Boolean enviarConfirmacaoEmail(UsuarioVO usuarioVO, String chaveConfirmacao){
+		return EnviarEmailUtils.enviarEmail(EnviarEmailUtils.getCorpoEmail(usuarioVO, chaveConfirmacao), usuarioVO.getEmail());
 	}
 }

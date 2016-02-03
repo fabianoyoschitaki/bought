@@ -27,7 +27,7 @@
      <mapping class="br.com.bought.model.ItemCompra" />
      <mapping class="br.com.bought.model.StatusCompra" />
      <mapping class="br.com.bought.model.Usuario" />
-
+     <mapping class="br.com.bought.model.AtivacaoCadastroUsuario" />
  
 </session-factory>
 </hibernate-configuration>

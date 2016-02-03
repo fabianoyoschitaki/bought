@@ -9,18 +9,37 @@ public class UsuarioVO {
 	private String email;
 	private String senha;
 	private Date dataCriacao;
+	private Date dataNascimento;
+	private String cpf;
+	private Boolean ativo;
 	
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
 	public UsuarioVO(){
 		
 	}
-	
-	public UsuarioVO(String nome, String email, String senha) {
-		super();
-		this.nome = nome;
-		this.email = email;
-		this.senha = senha;
-	}
-	
 	
 	public String getNome() {
 		return nome;
