@@ -1,15 +1,18 @@
 package br.com.bought.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import br.com.bought.business.ProdutoBusiness;
 import br.com.bought.business.UsuarioBusiness;
-import br.com.bought.common.ProdutoVO;
+import br.com.bought.common.RetornoAtivarUsuarioVO;
 import br.com.bought.common.UsuarioVO;
 
 @Controller
@@ -37,4 +40,15 @@ public class UsuarioController {
 		model.addAttribute("usuarios", usuarioBusiness.listarTodos());
 		return "usuario/lista";
 	}
+
+	@RequestMapping(value="confirmarCadastro")
+    public ModelAndView confirmarCadastro(@RequestParam("key") String key) {
+		ModelAndView model = null;
+		if(key != null){
+			RetornoAtivarUsuarioVO ativarUsuario = usuarioBusiness.ativarUsuario(key);
+			model = new ModelAndView("cadastro/cadastroSucesso");
+			model.addObject("msg", ativarUsuario.getMensagem());
+		}
+		return model;
+    }
 }

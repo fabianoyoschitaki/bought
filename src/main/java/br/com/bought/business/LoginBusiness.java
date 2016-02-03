@@ -27,12 +27,17 @@ public class LoginBusiness {
 		if(email != null && senha != null){
 			Usuario usuario = usuarioDAOImpl.obterUsuarioPorEmail(email);
 			if(usuario != null){
-				if(usuario.getSenha().equals(senha)){
-					retorno.setMsg(MSG_LOGIN_SUCESSO);
-					retorno.setStatus(COD_LOGIN_SUCESSO);
-					retorno.setUsuario(helper.convertUsuarioToUsuarioVO(usuario));
+				if(usuario.getAtivo()){
+					if(usuario.getSenha().equals(senha)){
+						retorno.setMsg(MSG_LOGIN_SUCESSO);
+						retorno.setStatus(COD_LOGIN_SUCESSO);
+						retorno.setUsuario(helper.convertUsuarioToUsuarioVO(usuario));
+					}else{
+						retorno.setMsg(MSG_SENHA_INVALIDA);
+						retorno.setStatus(COD_LOGIN_ERRO);
+					}
 				}else{
-					retorno.setMsg(MSG_SENHA_INVALIDA);
+					retorno.setMsg(MSG_USUARIO_NAO_ENCONTRADO);
 					retorno.setStatus(COD_LOGIN_ERRO);
 				}
 			}else{
