@@ -5,6 +5,7 @@
 <hibernate-configuration>
  <session-factory>
   
+     
     <property name="connection.url">jdbc:mysql://localhost:3306/ibought</property>
     <property name="connection.username">root</property>
     <property name="connection.password">bought</property>
