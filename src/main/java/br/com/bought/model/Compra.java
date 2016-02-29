@@ -1,6 +1,7 @@
 package br.com.bought.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -28,6 +29,9 @@ public class Compra {
 	
 	@Column(name="NUMERO_SESSAO")
 	private String numeroSessao;
+	
+	@Column(name="DATA")
+	private Date data;
 	
 	@Column(name="VALOR_TOTAL")
 	private BigDecimal valorTotal;
@@ -90,5 +94,11 @@ public class Compra {
 	}
 	public void setNumeroSessao(String numeroSessao) {
 		this.numeroSessao = numeroSessao;
+	}
+	public Date getData() {
+		return data;
+	}
+	public void setData(Date data) {
+		this.data = data;
 	}
 }

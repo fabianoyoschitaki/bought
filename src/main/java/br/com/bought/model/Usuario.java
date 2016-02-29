@@ -40,6 +40,9 @@ public class Usuario {
 	@Column(name="STATUS")
 	private Boolean ativo;
 	
+	@Column(name="ID_FACEBOOK", unique=true)
+	private String idFacebook;
+	
 	
 	public Boolean getAtivo() {
 		return ativo;
@@ -89,5 +92,10 @@ public class Usuario {
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	
+	public String getIdFacebook() {
+		return idFacebook;
+	}
+	public void setIdFacebook(String idFacebook) {
+		this.idFacebook = idFacebook;
+	}
 }

@@ -1,6 +1,7 @@
 package br.com.bought.common;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import br.com.bought.enums.StatusCompraENUM;
@@ -10,6 +11,7 @@ public class CompraVO {
 	private Long id;
 	private String numeroSessao;
 	private BigDecimal valorTotal;
+	private Date data;
 	private UsuarioVO usuarioVO;
 	private EstabelecimentoVO estabelecimentoVO;
 	private List<ItemCompraVO> itensCompraVO;
@@ -56,5 +58,11 @@ public class CompraVO {
 	}
 	public void setNumeroSessao(String numeroSessao) {
 		this.numeroSessao = numeroSessao;
+	}
+	public Date getData() {
+		return data;
+	}
+	public void setData(Date data) {
+		this.data = data;
 	}
 }

@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import br.com.bought.model.Compra;
+import br.com.bought.model.Estabelecimento;
 import br.com.bought.model.Usuario;
 
 public class CompraDAOImpl implements CompraDAO {
@@ -45,7 +46,7 @@ public class CompraDAOImpl implements CompraDAO {
 		return retorno;
 	}
 
-	public List<Compra> obterComprasPorUsuario(Usuario usuario) {
+	public List<Compra> obterComprasPorUsuario(Usuario usuario, Estabelecimento estabelecimento) {
 		Session session = null;
 		List<Compra> retorno = null;
 		try {
@@ -53,8 +54,9 @@ public class CompraDAOImpl implements CompraDAO {
 			session.beginTransaction();
 
 			Query q = session
-					.createQuery("From Compras c where c.usuario.id = :id");
-			q.setParameter("id", usuario.getId());
+					.createQuery("From Compra c where c.usuario.id = :idUsuario and c.estabelecimento.id = :idEstabelecimento");
+			q.setParameter("idUsuario", usuario.getId());
+			q.setParameter("idEstabelecimento", estabelecimento.getId());
 			retorno = q.list();
 			session.getTransaction().commit();
 		} catch (Exception e) {

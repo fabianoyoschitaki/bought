@@ -10,6 +10,7 @@ public class CadastroUsuarioVO{
 	private Date dataNascimento;
 	private String senha;
 	private String cpf;
+	private String idFacebook;
 	
 	public String getNome() {
 		return nome;
@@ -40,5 +41,11 @@ public class CadastroUsuarioVO{
 	}
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+	public String getIdFacebook() {
+		return idFacebook;
+	}
+	public void setIdFacebook(String idFacebook) {
+		this.idFacebook = idFacebook;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 
 import br.com.bought.common.CadastroUsuarioVO;
@@ -17,6 +18,9 @@ import br.com.bought.model.Usuario;
 import br.com.bought.utils.EnviarEmailUtils;
 
 public class UsuarioBusiness {
+	
+	private static final Logger LOOGER = 
+		      Logger.getLogger(UsuarioBusiness.class);
 	
 	private static final String MSG_NAO_FOI_POSSIVEL_ATIVAR_USUARIO = "Desculpe, não foi possível ativar o usuário.";
 	private static final String MSG_USUARIO_NAO_ENCONTRADO = "O usuário não foi encontrado.";
@@ -32,16 +36,21 @@ public class UsuarioBusiness {
 	}
 	
 	public Long salvar(UsuarioVO usuarioVO){
+		LOOGER.info("UsuarioBusiness.salvar - INICIO");
 		Usuario  usuario = usuarioHelper.convertUsuarioVOToUsuario(usuarioVO);
 		Long retorno = null;
 		if(usuario != null){
 			usuario.setDataCriacao(new Date());
 			retorno = usuarioDAOImpl.salvar(usuario);
+			if(retorno != null)
+				LOOGER.info("USUÁRIO SALVO COM SUCESSO: " + retorno);
 		}
+		LOOGER.info("UsuarioBusiness.salvar - FIM");
 		return retorno;
 	}
 	
 	public UsuarioVO obterUsuarioPorEmail(final String email){
+		LOOGER.info("UsuarioBusiness.obterUsuarioPorEmail - INICIO");
 		UsuarioVO usuarioVO = null;
 		try{
 			Usuario usuario = usuarioDAOImpl.obterUsuarioPorEmail(email);
@@ -50,37 +59,31 @@ public class UsuarioBusiness {
 				BeanUtils.copyProperties(usuario, usuarioVO);
 			}
 		}catch (Exception e){
-			e.printStackTrace();
+			LOOGER.error("OCORREU UM ERRO AO OBTER O USUÁRIO POR E-MAIL", e);
 		}
+		LOOGER.info("UsuarioBusiness.obterUsuarioPorEmail - INICIO");
 		return usuarioVO;
 	}
+
 	
-	public boolean isUsuarioValido(UsuarioVO usuarioVO) {
-		Boolean retorno = Boolean.FALSE;
-		if(usuarioVO != null && usuarioVO.getEmail() != null){
-			Usuario usuario = usuarioDAOImpl.obterUsuarioPorEmail(usuarioVO.getEmail());
-			if(usuario != null && 
-					usuario.getEmail() != null && 
-					usuario.getEmail().equals(usuarioVO.getEmail())){
-				retorno = Boolean.TRUE;
-			}
-		}
-		return retorno;
-	}
 
 	public List<UsuarioVO> listarTodos() {
+		LOOGER.info("UsuarioBusiness.listarTodos - INICIO");
 		List<UsuarioVO> retorno = null;
 		List<Usuario> usuarios = usuarioDAOImpl.listarTodos();
 		if(usuarios != null && usuarios.size() > 0){
+			LOOGER.info("USUÁRIO ENCONTRADOS: " + usuarios.size());
 			retorno = new ArrayList<UsuarioVO>();
 			for (Usuario usuario : usuarios) {
 				retorno.add(usuarioHelper.convertUsuarioToUsuarioVO(usuario));
 			}
 		}
+		LOOGER.info("UsuarioBusiness.listarTodos - FIM");
 		return retorno;
 	}
 
 	public UsuarioVO cadastrarUsuario(CadastroUsuarioVO cadastroUsuarioVO) {
+		LOOGER.info("UsuarioBusiness.cadastrarUsuario - INICIO");
 		UsuarioVO retorno = null;
 		if(cadastroUsuarioVO != null){
 			Usuario usuario = new Usuario();
@@ -89,23 +92,34 @@ public class UsuarioBusiness {
 			usuario.setDataNascimento(cadastroUsuarioVO.getDataNascimento());
 			usuario.setEmail(cadastroUsuarioVO.getEmail());
 			usuario.setNome(cadastroUsuarioVO.getNome());
-			usuario.setAtivo(Boolean.FALSE);
+			
+			if(cadastroUsuarioVO.getIdFacebook() != null && cadastroUsuarioVO.getIdFacebook() != ""){
+				usuario.setAtivo(Boolean.TRUE);
+			}else{
+				usuario.setAtivo(Boolean.FALSE);
+			}
 			usuario.setSenha(cadastroUsuarioVO.getSenha());
+			usuario.setIdFacebook(cadastroUsuarioVO.getIdFacebook());
 			
 			try{
 				Long id = usuarioDAOImpl.salvar(usuario);
 				if(id != null){
+					LOOGER.info("USUÁRIO CADASTRADO: " + id);
 					retorno = usuarioHelper.convertUsuarioToUsuarioVO(usuario);
 					
 					String chaveConfirmacao = EnviarEmailUtils.getChaveCriptografada(retorno);
+					LOOGER.info("CHAVE DE CONFIRMAÇÃO GERADA: " + chaveConfirmacao);
 					if(salvarChaveConfirmacaoCadastro(usuario, chaveConfirmacao)){
-						enviarConfirmacaoEmail(retorno, chaveConfirmacao);
+						if(enviarConfirmacaoEmail(retorno, chaveConfirmacao)){
+							LOOGER.info("CHAVE DE CONFIRMAÇÃO ENVIADA POR E-MAIL COM SUCESSO.");
+						}
 					}
 				}
 			}catch(Exception e){
-				e.printStackTrace();
+				LOOGER.error("OCORREU UM ERRO AO CADASTRAR USUÁRIO.", e);
 			}
 		}
+		LOOGER.info("UsuarioBusiness.cadastrarUsuario - FIM");
 		return retorno;
 	}
 	
@@ -118,6 +132,7 @@ public class UsuarioBusiness {
 		ativacaoCadastroUsuario.setChaveConfirmacao(chaveConfirmacao);
 		Long id = ativacaoCadastroUsuarioDAOImpl.salvar(ativacaoCadastroUsuario);
 		if(id != null){
+			LOOGER.info("CHAVE DE CONFIRMAÇÃO SALVA COM SUCESSO: " + chaveConfirmacao);
 			retorno = Boolean.TRUE;
 		}
 		return retorno;
@@ -152,5 +167,21 @@ public class UsuarioBusiness {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Pronto " + usuarioVO.getNome() + "!\n Seu usuário foi ativado com sucesso.");
 		return sb.toString();
+	}
+
+	public UsuarioVO obterUsuarioPorCpf(final String cpf){
+		LOOGER.info("UsuarioBusiness.obterUsuarioPorCpf - INICIO");
+		UsuarioVO usuarioVO = null;
+		try{
+			Usuario usuario = usuarioDAOImpl.obterUsuarioPorCpf(cpf);
+			if(usuario != null){
+				usuarioVO = new UsuarioVO();
+				BeanUtils.copyProperties(usuario, usuarioVO);
+			}
+		}catch (Exception e){
+			LOOGER.error("OCORREU UM ERRO AO OBTER O USUÁRIO POR CPF", e);
+		}
+		LOOGER.info("UsuarioBusiness.obterUsuarioPorCpf - INICIO");
+		return usuarioVO;
 	}
 }

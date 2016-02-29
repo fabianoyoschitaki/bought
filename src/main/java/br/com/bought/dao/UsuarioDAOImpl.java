@@ -2,15 +2,18 @@ package br.com.bought.dao;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import br.com.bought.model.Compra;
 import br.com.bought.model.Usuario;
 
 public class UsuarioDAOImpl implements UsuarioDAO {
 
+	private static final Logger LOOGER = 
+		      Logger.getLogger(UsuarioDAOImpl.class);
+	
 	private SessionFactory sessionFactory;
 
 	public SessionFactory getSession() {
@@ -38,6 +41,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
+			LOOGER.error("OCORREU UM ERRO NA CAMADA DAO AO BUSCAR POR ID.", e);
 			e.printStackTrace();
 		} finally {
 			if (session != null && session.isOpen()) {
@@ -61,7 +65,30 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			retorno = (Usuario) query.uniqueResult();
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOOGER.error("OCORREU UM ERRO NA CAMADA DAO AO OBTER USUÁRIO POR E-MAIL O USUÁRIO.", e);
+		} finally {
+			if (session != null && session.isOpen()) {
+				session.close();
+			}
+		}
+		return retorno;
+	}
+	
+	public Usuario obterUsuarioPorCpf(String cpf) {
+		Usuario retorno = null;
+		Session session = null;
+
+		try {
+			session = getSession().getCurrentSession();
+			session.beginTransaction();
+
+			Query query = session
+					.createQuery("From Usuario u where  u.cpf = :cpf");
+			query.setParameter("cpf", cpf);
+			retorno = (Usuario) query.uniqueResult();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			LOOGER.error("OCORREU UM ERRO NA CAMADA DAO AO OBTER USUARIO POR CPF O USUÁRIO.", e);
 		} finally {
 			if (session != null && session.isOpen()) {
 				session.close();
@@ -82,7 +109,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			session.getTransaction().commit();
 			retorno = Boolean.TRUE;
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOOGER.error("OCORREU UM ERRO NA CAMADA DAO AO ATUALIZAR O USUÁRIO.", e);
 		} finally {
 			if (session != null && session.isOpen()) {
 				session.close();
@@ -101,7 +128,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			retorno = (Long) session.save(usuario);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOOGER.error("OCORREU UM ERRO NA CAMADA DAO AO SALVAR O USUÁRIO.", e);
 		} finally {
 			if (session != null && session.isOpen()) {
 				session.close();
@@ -120,7 +147,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			Query q = session.createQuery("From Usuario ");
 			retorno = q.list();
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOOGER.error("OCORREU UM ERRO NA CAMADA DAO AO LISTAR OS USUÁRIOS.", e);
 		} finally {
 			if (session != null && session.isOpen()) {
 				session.close();

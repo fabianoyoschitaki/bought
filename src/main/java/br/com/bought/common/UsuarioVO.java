@@ -12,6 +12,7 @@ public class UsuarioVO {
 	private Date dataNascimento;
 	private String cpf;
 	private Boolean ativo;
+	private String idFacebook;
 	
 	public Boolean getAtivo() {
 		return ativo;
@@ -74,6 +75,14 @@ public class UsuarioVO {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getIdFacebook() {
+		return idFacebook;
+	}
+
+	public void setIdFacebook(String idFacebook) {
+		this.idFacebook = idFacebook;
 	}
 	
 	
